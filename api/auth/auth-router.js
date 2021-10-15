@@ -1,7 +1,11 @@
-const router = require('express').Router();
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
 
-router.post('/register', (req, res) => {
-  res.end('implement register, please!');
+const { checkAvailableUsername, checkCredentials } = require("./auth-middleware");
+const Users = require("../users/user-model");
+
+router.post("/register", checkCredentials, checkAvailableUsername, (req, res, next) => {
+  res.end("implement register, please!");
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -20,17 +24,11 @@ router.post('/register', (req, res) => {
         "username": "Captain Marvel",
         "password": "2a$08$jG.wIGR2S4hxuyWNcBf9MuoC4y0dNy7qC/LbmtuFBSdIhWks2LhpG"
       }
-
-    3- On FAILED registration due to `username` or `password` missing from the request body,
-      the response body should include a string exactly as follows: "username and password required".
-
-    4- On FAILED registration due to the `username` being taken,
-      the response body should include a string exactly as follows: "username taken".
   */
 });
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+router.post("/login", (req, res) => {
+  res.end("implement login, please!");
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
