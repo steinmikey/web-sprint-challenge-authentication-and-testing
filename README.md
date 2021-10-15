@@ -10,8 +10,8 @@ You are not allowed to collaborate during the sprint challenge.
 
 ## Project Setup
 
-- [ ] Run `npm install` to install your dependencies.
-- [ ] Run tests locally executing `npm test`.
+- [√] Run `npm install` to install your dependencies.
+- [√] Run tests locally executing `npm test`.
 
 ## Project Instructions
 
@@ -43,16 +43,20 @@ Your finished project must include all of the following requirements (further in
 
 ## Submission format
 
-- [ ] Submit via Codegrade by pushing commits to your `main` branch on Github.
-- [ ] Check Codegrade before the deadline to compare its results against your local tests.
-- [ ] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
-- [ ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
+- [√] Submit via Codegrade by pushing commits to your `main` branch on Github.
+- [√] Check Codegrade before the deadline to compare its results against your local tests.
+- [√] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
+- [√] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
 
 ## Interview Questions
 
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+   JWTs use signatures for verification, and cannot be deleted early
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
+   Runs a one-way hashing algorithm that results in a string that can only be reproduced using the same exact initial values
 3. How are unit tests different from integration and end-to-end testing?
+   Unit tests don't rely on features etc. outside of themselves. A unit test strictly tests that a piece of code functions properly independently of other code or components that may or may not relate to it.
 4. How does _Test Driven Development_ change the way we write applications and tests?
+   Write tests from basic to more complex. Then write the minimum code to pass those tests. Can potentially save time.
