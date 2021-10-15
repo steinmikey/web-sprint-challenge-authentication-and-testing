@@ -5,11 +5,11 @@ function find() {
 }
 
 function findBy(filter) {
-  return db("users").select("user_id", "username", "password").where(filter);
+  return db("users").select("id", "username", "password").where(filter);
 }
 
 function findById(id) {
-  return db("users").select("id", "username").where("users.id", id).first();
+  return db("users").select("id", "username", "password").where({ id }).first();
 }
 
 async function addUser({ username, password }) {

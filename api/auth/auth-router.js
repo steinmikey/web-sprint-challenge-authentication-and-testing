@@ -5,29 +5,21 @@ const { checkAvailableUsername, checkCredentials } = require("./auth-middleware"
 const Users = require("../users/user-model");
 
 router.post("/register", checkCredentials, checkAvailableUsername, (req, res, next) => {
-  res.end("implement register, please!");
-  /*
-    IMPLEMENT
-    You are welcome to build additional middlewares to help with the endpoint's functionality.
-    DO NOT EXCEED 2^8 ROUNDS OF HASHING!
+  let user = req.body;
 
-    1- In order to register a new account the client must provide `username` and `password`:
-      {
-        "username": "Captain Marvel", // must not exist already in the `users` table
-        "password": "foobar"          // needs to be hashed before it's saved
-      }
+  const round = process.env.BCRYPT_ROUNDS || 8;
+  const hash = bcrypt.hashSync(user.password, round);
 
-    2- On SUCCESSFUL registration,
-      the response body should have `id`, `username` and `password`:
-      {
-        "id": 1,
-        "username": "Captain Marvel",
-        "password": "2a$08$jG.wIGR2S4hxuyWNcBf9MuoC4y0dNy7qC/LbmtuFBSdIhWks2LhpG"
-      }
-  */
+  user.password = hash;
+
+  Users.addUser(user)
+    .then((newUser) => {
+      res.status(201).json(newUser);
+    })
+    .catch(next);
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", (req, res, next) => {
   res.end("implement login, please!");
   /*
     IMPLEMENT
