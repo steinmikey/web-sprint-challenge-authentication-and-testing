@@ -12,7 +12,7 @@ async function checkAvailableUsername(req, res, next) {
   }
 }
 
-function checkCredentials(req, res, next) {
+async function checkCredentials(req, res, next) {
   // 3- On FAILED registration due to `username` or `password` missing from the request body,
   //   the response body should include a string exactly as follows: "username and password required".
 
@@ -20,6 +20,8 @@ function checkCredentials(req, res, next) {
   if (!username || !password) {
     next({ status: 422, message: `username and password required` });
   } else {
+    const [user] = await findBy({ username });
+    req.body.user = user;
     next();
   }
 }
