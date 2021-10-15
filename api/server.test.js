@@ -83,24 +83,29 @@ describe("[POST] /login", () => {
   });
 });
 
-// describe("[GET] /", () => {
-//   let res;
-//   beforeEach(async () => {
-//     res = await request(server).get("/api/jokes");
-//   });
-//   it("responds with 401 w/out token", async () => {
-//     expect(res.status).toBe(401);
-//   });
-//   it.todo("");
-// });
+describe("[GET] /", () => {
+  describe("when not authorized", () => {
+    it("responds with a list of jokes", async () => {
+      await request(server).post("/api/auth/register").send({ username: "username", password: "password" });
+      await request(server).post("/api/auth/login").send({
+        username: "username",
+        password: "password"
+      });
+      const response = await request(server).get("/api/jokes");
+      expect(response.body.message).toBe("token required");
+    });
+  });
+  describe("when authorization token included in header", () => {
+    it("responds with a list of jokes", async () => {
+      await request(server).post("/api/auth/register").send({ username: "username", password: "password" });
+      const responseWithToken = await request(server).post("/api/auth/login").send({
+        username: "username",
+        password: "password"
+      });
+      const token = responseWithToken.body.token;
 
-// describe("[GET] /", () => {
-//   let res;
-//   beforeEach(async () => {
-//     res = await request(server).get("/api/jokes");
-//   });
-//   it("responds with 401 w/out token", async () => {
-//     expect(res.status).toBe(401);
-//   });
-//   it.todo("responds with 401");
-// });
+      const response = await request(server).get("/api/jokes").set("authorization", token);
+      expect(response.body).toHaveLength(3);
+    });
+  });
+});
